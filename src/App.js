@@ -6,6 +6,9 @@ import './App.css'
 function App() {
   const [cards, setCards] = useState([])
   const [filteredData, setFilteredData] = useState([])
+  const [favorites, setFavorites] = useState([])
+  console.log(favorites)
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,6 +21,7 @@ function App() {
     }
     fetchData()
   }, [])
+  
   // let sortBy = {city: 'city', month: 'date'}
   let options_city = ['All', ...Array.from(new Set (cards.map(item=>item.city)))]
   // let options_month = ['All', ...Array.from(new Set (cards.map(item=>item.date)))]
@@ -60,7 +64,10 @@ function App() {
             return (
               // <div key={card.id} className="cardItem-container">
                 <CardItem
+                  favorites={favorites}
+                  setFavorites={setFavorites}
                   key={card.id}
+                  id={card.id}
                   name={card.name}
                   date={card.date}
                   city={card.city}
