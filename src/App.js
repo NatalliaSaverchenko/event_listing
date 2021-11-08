@@ -3,12 +3,14 @@ import CardItem from './components/CardItem/CardItem'
 
 import './App.css'
 
+
 function App() {
   const [cards, setCards] = useState([])
   const [filteredData, setFilteredData] = useState([])
-  const [favorites, setFavorites] = useState([])
+  const [favorites, setFavorites] = useState(localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [])
   console.log(favorites)
 
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,9 +24,9 @@ function App() {
     fetchData()
   }, [])
   
-  // let sortBy = {city: 'city', month: 'date'}
+
   let options_city = ['All', ...Array.from(new Set (cards.map(item=>item.city)))]
-  // let options_month = ['All', ...Array.from(new Set (cards.map(item=>item.date)))]
+  
 
   const filtered = (param) => {
     const filtered = cards && cards.filter((item) => item.city === param)
@@ -61,6 +63,7 @@ function App() {
       <div className="listOfCardsItems">
         {filteredData &&
           filteredData.map((card) => {
+
             return (
               // <div key={card.id} className="cardItem-container">
                 <CardItem
@@ -73,6 +76,7 @@ function App() {
                   city={card.city}
                   genre={card.genre}
                   image={card.image}
+                  
                 />
               // </div>
             )

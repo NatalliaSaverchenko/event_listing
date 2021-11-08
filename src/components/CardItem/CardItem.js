@@ -1,19 +1,48 @@
-import './cardItem.css'
+import { useState } from 'react'
+
 import { faBookmark } from '@fortawesome/free-regular-svg-icons'
+import { faBookmark as solidfaBookMark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const CardItem = ({ id, name, date, city, genre, image, favorites, setFavorites }) => {
+import './cardItem.css'
+
+const CardItem = ({
+  id,
+  name,
+  date,
+  city,
+  genre,
+  image,
+  favorites,
+  setFavorites,
+  
+}) => {
+  const [isInFavorites, setIsInFavorites] = useState(false)
+
+  const removeduplicates = (favorites) => {
+    let filteredFavorites = favorites.filter(
+      (item, index, array) =>
+        array.findIndex((elem) => item.id === elem.id) === index
+    )
+    return filteredFavorites
+  }
+
   const onSaveItemClick = () => {
-    let newfavorites=favorites.concat({
+    // debugger
+    let newfavorite = {
       id: id,
       name: name,
       date: date,
       city: city,
       genre: genre,
       image: image,
-    })
-    setFavorites(newfavorites)
+    }
 
+    let newfavorites = favorites.concat(newfavorite)
+    let realfavorites = removeduplicates(newfavorites)
+    setFavorites(realfavorites)
+    setIsInFavorites(true)
+    localStorage.setItem('favorites', JSON.stringify(realfavorites))
   }
   return (
     <div className="cardItem">
@@ -26,8 +55,11 @@ const CardItem = ({ id, name, date, city, genre, image, favorites, setFavorites 
             <div className="cardItemDate">
               <span>{date.slice(0, 2)}</span>
             </div>
+            
             <div onClick={onSaveItemClick} className="bookMark">
-              <FontAwesomeIcon style={{ fontSize: '18px' }} icon={faBookmark} />
+            {isInFavorites ? <FontAwesomeIcon style={{ fontSize: '18px' }} icon={solidfaBookMark} /> : 
+            <FontAwesomeIcon style={{ fontSize: '18px' }} icon={faBookmark} />}
+              
             </div>
           </div>
           <div>

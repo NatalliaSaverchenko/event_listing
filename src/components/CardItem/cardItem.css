@@ -41,3 +41,6 @@
     display: flex;
     justify-content: flex-start;
 }
+.bookMark:hover {
+cursor: pointer;
+}
