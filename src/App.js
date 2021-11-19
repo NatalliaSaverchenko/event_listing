@@ -67,6 +67,7 @@ function App() {
             return (
               // <div key={card.id} className="cardItem-container">
                 <CardItem
+                 filteredData={filteredData}
                   favorites={favorites}
                   setFavorites={setFavorites}
                   key={card.id}

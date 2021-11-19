@@ -15,9 +15,10 @@ const CardItem = ({
   image,
   favorites,
   setFavorites,
+  filteredData,
   
 }) => {
-  const [isInFavorites, setIsInFavorites] = useState(false)
+  const [isInFavorites, setIsInFavorites] = useState(!!favorites.find(item => item.id === id))
 
   const removeduplicates = (favorites) => {
     let filteredFavorites = favorites.filter(
